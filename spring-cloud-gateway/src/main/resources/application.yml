@@ -1,0 +1,113 @@
+
+
+
+
+
+
+server:
+  port: 9097
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order_route
+          predicates:
+            - Path=/gateway/**
+          filters:
+            - StripPrefix=1
+
+          uri: http://localhost:8083/
+
+        - id: cookie_route
+          uri: https://www.gupaoedu.com
+          predicates:
+          - Cookie=loginname, chenjun
+
+        - id: auth_route
+          predicates:
+            - Path=/define/**
+            - Auth=Authorization
+          filters:
+            - StripPrefix=1
+          uri: http://localhost:8083
+
+        - id: filter_route
+          predicates:
+            - Path=/definefilter/**
+          filters:
+            - StripPrefix=1
+            - CjDefine=Hello jun
+          uri: http://localhost:8083
+
+        - id: lb_route
+          predicates:
+            - Path=/lb/**
+          filters:
+            - StripPrefix=1
+          uri: lb://order-service
+
+        - id: requestratelimiter_route
+          predicates:
+            - Path=/requestRateLimiter/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                keyResolver: '#{@ipAddressKeyResolver}'
+                deny-empty-key: true
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 6
+#               redis-rate-limiter.requestedTokens: 1
+          uri: lb://order-service
+
+        - id: mall_route
+          predicates:
+            - Path=/mall/**
+          filters:
+            - StripPrefix=1
+          uri: lb://order-service
+        - id: user_route
+          predicates:
+            - Path=/usertoken/**
+          filters:
+            - StripPrefix=1
+          uri: lb://user-service
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411
+  redis:
+    host: localhost
+    port: 6379
+
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9091/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    org.springframework.cloud.sleuth: debug
+
+
+
+
+
+
+
+

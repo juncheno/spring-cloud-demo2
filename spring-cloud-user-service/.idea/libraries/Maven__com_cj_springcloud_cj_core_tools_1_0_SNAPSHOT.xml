@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.cj.springcloud:cj.core.tools:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar:///usr/local/apache-maven3.6.3/repository/com/cj/springcloud/cj.core.tools/1.0-SNAPSHOT/cj.core.tools-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar:///usr/local/apache-maven3.6.3/repository/com/cj/springcloud/cj.core.tools/1.0-SNAPSHOT/cj.core.tools-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar:///usr/local/apache-maven3.6.3/repository/com/cj/springcloud/cj.core.tools/1.0-SNAPSHOT/cj.core.tools-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
